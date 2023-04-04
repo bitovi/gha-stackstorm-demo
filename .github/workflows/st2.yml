@@ -1,0 +1,25 @@
+# Deploy ST2 Single VM with GHA
+name: CD
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  deploy-st2:
+    runs-on: ubuntu-latest
+    steps:
+    - id: deploy-st2
+      name: Deploy StackStorm
+      # NOTE: we recommend pinning to the latest numeric version
+      # See: https://github.com/bitovi/github-actions-deploy-stackstorm/releases
+      uses: bitovi/github-actions-deploy-stackstorm@main
+      with:
+        aws_default_region: us-east-1
+        aws_access_key_id: ${{ secrets.AWS_ACCESS_KEY_ID_DEVOPS_TRAINING }}
+        aws_secret_access_key: ${{ secrets.AWS_SECRET_ACCESS_KEY_DEVOPS_TRAINING }}
+        st2_auth_username: ${{ secrets.ST2_AUTH_USERNAME}}
+        st2_auth_password: ${{ secrets.ST2_AUTH_PASSWORD}}
+        st2_packs: "st2,aws,github"
+        aws_ec2_instance_type: "t2.large"
+        
