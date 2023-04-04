@@ -22,4 +22,6 @@ jobs:
         st2_auth_password: ${{ secrets.ST2_AUTH_PASSWORD}}
         st2_packs: "st2,aws,github"
         aws_ec2_instance_type: "t2.large"
-        
+        # destroys all the resources
+        tf_stack_destroy: "true"
+        tf_state_bucket_destroy: "true"
